@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import yt_dlp
+import os
 
 app = Flask(__name__)
 
@@ -24,3 +25,7 @@ def extract_audio():
             return jsonify({'audio_url': audio_url})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 10000))  # Default to 10000 if PORT is not set
+    app.run(host='0.0.0.0', port=port)
